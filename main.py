@@ -9,25 +9,24 @@ screen.setup(width=600, height=600)
 screen.tracer(0)
 
 player = Player()
+car_manager = CarManager()
+
 screen.listen()
 screen.onkey(key="Up", fun=player.player_move)
 
 game_is_on = True
 
-cars = []
 while game_is_on:
     time.sleep(0.1)
     screen.update()
-    car = CarManager()
-    car.forward(car.move_distance)
-    cars.append(car)
-    for car in cars:
-        car.forward(car.move_distance)
+    car_manager.create_car()
+    car_manager.move_cars()
 
     # detect if player reaches the other side
     if player.ycor() == player.finish_line:
         player.player_start()
 
-    for car in cars:
-        if player.distance(car) < 20:
+    # detecting player collision with car
+    for car in car_manager.all_cars:
+        if player.distance(car) < 30:
             game_is_on = False
