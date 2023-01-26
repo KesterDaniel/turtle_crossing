@@ -10,6 +10,7 @@ screen.tracer(0)
 
 player = Player()
 car_manager = CarManager()
+score_board = Scoreboard()
 
 screen.listen()
 screen.onkey(key="Up", fun=player.player_move)
@@ -25,6 +26,7 @@ while game_is_on:
     # detect if player reaches the other side
     if player.ycor() == player.finish_line:
         player.player_start()
+        score_board.increase()
 
     # detecting player collision with car
     for car in car_manager.all_cars:
