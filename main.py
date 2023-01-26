@@ -10,7 +10,12 @@ screen.tracer(0)
 
 player = Player()
 
+screen.listen()
+screen.onkey(key="Up", fun=player.player_move)
+
 game_is_on = True
 while game_is_on:
     time.sleep(0.1)
     screen.update()
+    if player.ycor() == player.finish_line:
+        player.player_start()
